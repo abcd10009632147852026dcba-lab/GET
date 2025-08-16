@@ -5,7 +5,7 @@
 This is the official code repository for our paper GET. This guide provides comprehensive instructions for setting up the environment, preparing datasets, and running training and inference.
 
 
-## Prerequisites
+## Prerequisites (if only required)
 
 Before you begin, ensure you have the following installed:
 
@@ -13,41 +13,23 @@ Before you begin, ensure you have the following installed:
 - The appropriate NVIDIA drivers for your GPU.
 - Conda (or Miniconda) for environment management.
 
-## Installation
+## Installation (you can start from here)
 
 Follow these steps to set up the necessary environment and dependencies.
 
 1. **Create and Activate a Conda Environment**
 
    ```bash
-   # Create a conda environment with Python 3.9
-   conda create -n get python=3.9 -y
+   # Create a conda environment
+   conda env create -f environment.yml
 
    # Activate the new environment
-   conda activate get
+   conda activate GET
    ```
+  > **Note:** If you encounter package conflicts, we recommend creating a fresh environment before proceeding. 
 
-2. **Install Dependencies**
 
-   ```bash
-   # Upgrade pip (recommended)
-   python -m pip install --upgrade pip
-
-   # Install dependencies from requirements.txt
-   pip install -r requirements.txt
-   ```
-
-   > **Note:** If you encounter package conflicts, we recommend creating a fresh environment before proceeding.
-
-3. **Install PyTorch**
-
-   The following command installs PyTorch for CUDA 11.8. For other versions, please see the [official PyTorch installation guide](https://pytorch.org/get-started/locally/).
-
-   ```bash
-   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-   ```
-
-4. **Verify the Installation**
+2. **Verify the Installation**
 
    Run the following command to confirm that PyTorch was installed correctly and can detect your GPU.
 
@@ -55,7 +37,7 @@ Follow these steps to set up the necessary environment and dependencies.
    python -c "import torch; print(f'PyTorch Version: {torch.__version__}'); print(f'CUDA Available: {torch.cuda.is_available()}')"
    ```
 
-   The expected output should show your PyTorch version and `CUDA Available: True`. If it returns `False`, please verify your NVIDIA driver and CUDA Toolkit installation.
+   The expected output should show your `PyTorch version` and `CUDA Available: True`. If it returns `False`, please verify your NVIDIA driver and CUDA Toolkit installation.
 
 ## Dataset Preparation
 
@@ -94,36 +76,36 @@ Dataset/
 You can inspect the predefined training and testing splits using our helper script:
 
 ```bash
-python Dataset/show_pkl.py
+python Dataset/show_pkl_content.py
 ```
 
 ## Training & Inference
 
 ### Training
 
-To train the GET model on a dataset, run the training script:
+To train the GET model on a dataset select which one you are going to train from `train.sh`, then run the training script:
 
 ```bash
 sh train.sh
 ```
 
-- Model checkpoints and logs will be saved to the `results/` directory.
-- Hyperparameters such as batch size, learning rate, and epochs can be modified in the corresponding YAML configuration files located in `configs/` (e.g., `configs/busi_train.yaml`).
+- Model checkpoints and logs will be saved to the `Results/` directory.
+- Hyperparameters such as batch size, learning rate, and epochs can be modified in the corresponding YAML configuration files located in `configs/` (e.g., `configs/bus_train.yaml`).
 
 > **Hardware Note:** The default batch size is set to `8`, which is optimized for a 24GB GPU like the NVIDIA 3090 Ti. If you encounter an out-of-memory (OOM) error, please reduce the `batch_size` in the configuration file.
 
 ### Inference
 
-To evaluate a trained model and generate segmentation masks, run the validation script:
+To evaluate a trained model and generate segmentation masks, put the trained model into the `valid_dataset_name` (e.g., valid_bus, valid_busi) folder and do other configurations (e.g., `configs/bus_valid.yaml`) like training, then run the validation script:
 
 ```bash
 sh valid.sh
 ```
 
-This script will produce the following outputs:
+This will produce the following outputs:
 
-- **Predicted Masks:** Saved in the `results/` directory.
-- **Evaluation Metrics:** A `metrics.csv` file containing Dice Score (DSC), Intersection over Union (IoU), and 95% Hausdorff Distance (HD95) for each test image.
+- **Predicted Masks:** Saved in the `Results/valid_dataset_name` (e.g., Results/valid_bus) directory.
+- **Evaluation Metrics:** A `results.csv` file containing Dice Score (DSC), Intersection over Union (IoU), and 95% Hausdorff Distance (HD95) for each test image.
 
 ## Acknowledgements
 
@@ -132,5 +114,5 @@ This work builds upon several outstanding open-source projects. We gratefully ac
 - **Stable Diffusion VAE:** The pretrained Variational Autoencoder from [Stability-AI](https://github.com/stability-ai/stablediffusion).
 - **GSS:** The benchmarking utilities for medical image segmentation.
 
-If you encounter any issues, please feel free to open an issue on GitHub.
+Enjoy the Training and Testing of our GET model. If you encounter any issues, please feel free to open an issue on GitHub.
 
