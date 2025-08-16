@@ -1,0 +1,1 @@
+Please download the SD-VAE-weight (768-v-ema-first-stage-VAE.ckpt) using [this link](https://drive.google.com/file/d/1NM9pjv7IJe-HBLrqo1IGATYHHkyT9jTw/view?usp=sharing) and place it in this folder.
