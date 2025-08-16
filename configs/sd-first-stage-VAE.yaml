@@ -1,0 +1,10 @@
+first_stage_config:
+  target: ldm.models.autoencoder.AutoencoderKL
+  scale_factor: 0.18215
+  params:
+    embed_dim: 4
+    ddconfig:
+      double_z: true
+      z_channels: 4
+      in_channels: 3
+      out_ch: 3

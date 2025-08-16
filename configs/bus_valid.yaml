@@ -1,0 +1,29 @@
+# Data Settings
+phase: valid
+
+pickle_file_path: ./Dataset/bus/bus_train_test_names.pkl
+model_weight: ./Results/valid_bus/best_model.pth
+snapshot_path: ./Results/valid_bus
+save_seg_img_path: ./Results/valid_bus/predicted_masks
+
+# VAE Settings
+vae_config_path: ./configs/sd-first-stage-VAE.yaml
+vae_ckpt: ./SD-VAE-weight/768-v-ema-first-stage-VAE.ckpt
+
+# Valid Settings
+GPUs: [0]
+num_workers: 4
+batch_size: 1
+seed: 2333
+
+# Model Settings
+in_channel: 4
+out_channels: 4
+ch: 32
+ch_mult: [1,2,3,5]
+
+# Loss Settings
+w_rec: 1
+w_dice: 1
+w_ftv: 1
+w_kl: 0.01
