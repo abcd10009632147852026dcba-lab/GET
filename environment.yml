@@ -1,0 +1,31 @@
+name: GET
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+      - albumentations==1.0.3
+      - einops>=0.6.1
+      - numpy>=1.24.4
+      - pillow>=9.5.0
+      - omegaconf
+      - pyyaml
+      - pytorch-lightning
+      - torch
+      - torchvision
+      - monai
+      - tensorboardX
+      - pandas
+      - scikit-learn
+      - matplotlib
+      - scipy
+      - opencv-python-headless
+      - timm
+      - thop
+      - torchmetrics
+      - simpleitk
+      - medpy
